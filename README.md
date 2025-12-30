@@ -56,9 +56,8 @@ This example is illustrative — exact tokenization and BIO labels in the export
 
 Screenshot
 ----------
-You can include a screenshot of the annotator UI in the README. Save the image file as `docs/screenshot.png` (or `assets/screenshot.png`) in the repository, then the image will appear below:
 
-![Annotel screenshot](docs/screenshot.png)
+![Annotel screenshot](assets/screenshot.png)
 
 If you want me to add the image file to the repo, upload the image here or place it in `docs/screenshot.png` and I will commit it for you.
 - Le frontend utilise une sélection par souris et calcule les offsets de caractères pour les annotations — ces offsets sont compatibles avec le backend FastAPI.
