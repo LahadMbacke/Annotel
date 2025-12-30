@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Annotel — Frontend HTML/JS</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="container">
+      <h1>Annotel — Annotation d'entités (HTML/JS)</h1>
+
+      <section class="upload">
+        <h2>1. Charger un texte</h2>
+        <form id="upload-form">
+          <label for="text-input">Coller le texte :</label>
+          <textarea id="text-input" name="text" rows="6" placeholder="Collez ou tapez le texte ici"></textarea>
+          <div class="row">
+            <input id="file-input" type="file" accept=".txt" />
+            <button id="upload-btn" type="submit">Téléverser</button>
+          </div>
+        </form>
+        <div id="doc-info" class="muted">Document: — | Annotations: 0</div>
+      </section>
+
+      <section class="annotate">
+        <h2>2. Annoter</h2>
+        <div class="palette" id="label-palette">
+          <button data-label="PERS" class="label-btn active">PERS</button>
+          <button data-label="ORG" class="label-btn">ORG</button>
+          <button data-label="DATE" class="label-btn">DATE</button>
+          <button data-label="LOC" class="label-btn">LOC</button>
+        </div>
+
+        <div class="controls">
+          <button id="save-selection">Sauvegarder sélection</button>
+          <button id="export-btn">Suivant / Export .conll</button>
+        </div>
+
+        <div id="text-container" class="text-box" tabindex="0"></div>
+      </section>
+
+      <section class="annotations-list">
+        <h2>3. Annotations</h2>
+        <ul id="annotations"></ul>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Annotel - Frontend</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

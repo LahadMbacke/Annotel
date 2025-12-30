@@ -1,0 +1,60 @@
+:root{ 
+	--bg:#fbfdff; 
+	--muted:#6b7280; 
+	--accent:#0b74de; 
+	--card:#ffffff; 
+	--muted-bg:#f3f4f6;
+	--pers:#ff8a80;    /* person */
+	--org:#a5d6a7;     /* organization */
+	--date:#90caf9;    /* date */
+	--loc:#f48fb1;     /* location */
+	--pers-text:#7b1e1e; /* badge text color for PERS */
+}
+*{ box-sizing:border-box }
+body{ font-family: Inter, 'Helvetica Neue', Arial, sans-serif; background:var(--bg); padding:28px; color:#111827 }
+.container{ max-width:1100px; margin:0 auto; background:transparent }
+h1{ margin-bottom:8px; font-size:28px }
+.section-title{ margin-top:18px; margin-bottom:10px; font-size:20px }
+.row{ display:flex; gap:8px; align-items:center; margin-top:8px }
+.muted{ color:var(--muted); margin-top:8px }
+.palette{ display:flex; gap:8px; margin-bottom:8px }
+.label-btn{ padding:8px 12px; border-radius:6px; border:1px solid #d1d5db; background:var(--muted-bg); cursor:pointer; font-weight:600; display:flex; align-items:center; gap:8px }
+.label-btn.active{ box-shadow:0 6px 18px rgba(15,23,42,0.06); border-color:var(--accent); background:linear-gradient(180deg, #fff, #f8fbff) }
+
+/* colored label buttons (muted when not active) */
+.label-btn[data-label="PERS"]{ background:linear-gradient(180deg, rgba(255,138,128,0.12), rgba(255,138,128,0.06)); border-color:rgba(255,138,128,0.25) }
+.label-btn[data-label="ORG"]{ background:linear-gradient(180deg, rgba(165,214,167,0.12), rgba(165,214,167,0.06)); border-color:rgba(165,214,167,0.25) }
+.label-btn[data-label="DATE"]{ background:linear-gradient(180deg, rgba(144,202,249,0.12), rgba(144,202,249,0.06)); border-color:rgba(144,202,249,0.25) }
+.label-btn[data-label="LOC"]{ background:linear-gradient(180deg, rgba(244,143,177,0.12), rgba(244,143,177,0.06)); border-color:rgba(244,143,177,0.25) }
+.controls{ margin-bottom:10px }
+.controls button{ padding:8px 12px; border-radius:6px; border:1px solid #cbd5e1; background:#fff; cursor:pointer }
+.controls button:hover{ transform:translateY(-1px) }
+.text-box{ border:1px solid #e5e7eb; min-height:220px; padding:14px; white-space:pre-wrap; overflow:auto; border-radius:6px; background:#fff }
+.annot{ padding:2px 6px; border-radius:3px; margin:0 1px; display:inline-block; position:relative }
+.annot[data-label="PERS"]{ background:var(--pers); color:#000; box-shadow: inset 0 -3px 0 rgba(0,0,0,0.03) }
+.annot[data-label="ORG"]{ background:var(--org); color:#07361a }
+.annot[data-label="DATE"]{ background:var(--date); color:#062a46 }
+.annot[data-label="LOC"]{ background:var(--loc); color:#3b0b2f }
+.annot::after{ content: " " attr(data-label); font-weight:700; margin-left:8px; color:var(--pers-text); pointer-events:none; user-select:none }
+.annot[data-label="ORG"]::after{ color:#155724 }
+.annot[data-label="DATE"]::after{ color:#0b3b6f }
+.annot[data-label="LOC"]::after{ color:#831843 }
+.annotations-list ul{ list-style:none; padding-left:0 }
+.annotations-list li{ padding:8px 6px; display:flex; gap:12px; align-items:center; border-bottom:1px dashed #eef2ff }
+.annotations-list button{ margin-left:auto; padding:6px 10px; border-radius:6px; border:1px solid #e5e7eb; background:#fff }
+
+/* upload form */
+.upload textarea{ width:100%; font-family:monospace; border-radius:6px; border:1px solid #e6eef8; padding:10px }
+.row input[type="text"]{ padding:6px 8px; border:1px solid #d1d5db; border-radius:6px }
+.row input[type="file"]{ padding:6px }
+.muted.small{ font-size:13px; color:var(--muted) }
+
+/* backend status */
+#backend-status{ font-weight:600 }
+
+/* responsive */
+@media (max-width:720px){
+	.container{ padding:12px }
+	h1{ font-size:20px }
+	.section-title{ font-size:16px }
+}
