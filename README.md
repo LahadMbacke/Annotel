@@ -23,44 +23,41 @@ Annotations (examples):
 
 CoNLL-like output (token per line with BIO tags):
 
-Florian B-PERS
-Wirtz I-PERS
-, O
-né O
-le O
-3 B-DATE
-mai I-DATE
-2003 I-DATE
-à O
-Pulheim B-LOC
-en O
-Allemagne B-LOC
-, O
-est O
-un O
-footballeur O
-international O
-allemand O
-qui O
-évolue O
-au O
-poste O
-de O
-milieu O
-offensif O
-au O
-Liverpool B-ORG
-FC I-ORG
+- Florian B-PERS
+- Wirtz I-PERS
+- , O
+- né O
+- le O
+- 3 B-DATE
+- mai I-DATE
+- 2003 I-DATE
+- à O
+- Pulheim B-LOC
+- en O
+- Allemagne B-LOC
+- , O
+- est O
+- un O
+- footballeur O
+- international O
+- allemand O
+- qui O
+- évolue O
+- au O
+- poste O
+- de O
+- milieu O
+- offensif O
+- au O
+- Liverpool B-ORG
+- FC I-ORG
 
-This example is illustrative — exact tokenization and BIO labels in the exported file depend on the tokenizer used by the backend (the current MVP uses a simple regex tokenizer). 
+This example is illustrative — exact tokenization and BIO labels in the exported file depend on the tokenizer used by the backend (the current MVP uses a simple regex tokenizer).
 
 Screenshot
 ----------
 
 ![Annotel screenshot](assets/screenshot.png)
 
-If you want me to add the image file to the repo, upload the image here or place it in `docs/screenshot.png` and I will commit it for you.
-- Le frontend utilise une sélection par souris et calcule les offsets de caractères pour les annotations — ces offsets sont compatibles avec le backend FastAPI.
 
-- Assurez-vous que le backend FastAPI tourne sur `http://localhost:8000` (par défaut CORS autorisé).
 
