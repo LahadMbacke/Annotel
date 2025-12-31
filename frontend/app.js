@@ -13,6 +13,9 @@ const annList = document.getElementById('annotations')
 const backendStatusEl = document.getElementById('backend-status')
 const backendUrlInput = document.getElementById('backend-url')
 const setBackendBtn = document.getElementById('set-backend')
+const dirPathInput = document.getElementById('dir-path')
+const setDirBtn = document.getElementById('set-dir')
+const outDirInput = document.getElementById('out-dir-path')
 let backendAvailable = false
 
 // allow changing backend at runtime
@@ -21,6 +24,28 @@ if(backendUrlInput){
   setBackendBtn.addEventListener('click', ()=>{
     const v = backendUrlInput.value.trim()
     if(v){ BACKEND_BASE = v; pingBackend() }
+  })
+}
+
+if(setDirBtn){
+  setDirBtn.addEventListener('click', async ()=>{
+    const p = (dirPathInput && dirPathInput.value) ? dirPathInput.value.trim() : ''
+    const outp = (outDirInput && outDirInput.value) ? outDirInput.value.trim() : ''
+    if(!p){ alert('Provide a directory path on the server'); return }
+    try{
+      const body = outp ? {path: p, output_path: outp} : {path: p}
+      const resp = await fetch(`${BACKEND_BASE}/set-directory`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) })
+      if(!resp.ok){ alert('Set directory failed: '+await resp.text()); return }
+      const j = await resp.json()
+      if(j.status === 'ok'){
+        docId = j.doc_id
+        textContent = j.text
+        annotations = j.annotations || []
+        updateDocInfo(); renderAnnotatedText(); renderAnnotationsList();
+      }else{
+        alert(j.message || 'No files found')
+      }
+    }catch(e){ console.error(e); alert('Error setting directory') }
   })
 }
 
@@ -200,6 +225,28 @@ document.getElementById('export-btn').addEventListener('click', async ()=>{
     a.click()
     a.remove()
     URL.revokeObjectURL(url)
+    // after successful export, ask backend for next file (and save .conll on server)
+    try{
+      const nresp = await fetch(`${BACKEND_BASE}/next`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({prev_doc_id: docId}) })
+      if(!nresp.ok){
+        // no more files or server error
+        const txt = await nresp.text()
+        alert('No next file: '+txt)
+        // clear current doc
+        docId = null; textContent = ''; annotations = []; updateDocInfo(); renderAnnotatedText(); renderAnnotationsList();
+      }else{
+        const nj = await nresp.json()
+        if(nj.status === 'ok'){
+          docId = nj.doc_id
+          textContent = nj.text
+          annotations = nj.annotations || []
+          updateDocInfo(); renderAnnotatedText(); renderAnnotationsList();
+        }else{
+          alert(nj.message || 'No more files')
+          docId = null; textContent = ''; annotations = []; updateDocInfo(); renderAnnotatedText(); renderAnnotationsList();
+        }
+      }
+    }catch(e){ console.error(e) }
   }catch(e){ console.error(e) }
 })
 
