@@ -8,10 +8,10 @@
   </head>
   <body>
     <main class="container">
-      <h1>Annotel — Annotation d'entités (HTML/JS)</h1>
+      <h1>Annotel — Annotation d'entités</h1>
 
       <section class="upload">
-        <h2>1. Charger un texte</h2>
+        <!-- <h2>1. Charger un texte</h2>
         <div id="backend-status" class="muted">Checking backend...</div>
         <form id="upload-form">
           <label for="text-input">Coller le texte :</label>
@@ -21,7 +21,7 @@
             <button id="upload-btn" type="submit">Téléverser</button>
           </div>
         </form>
-        <div id="doc-info" class="muted">Document: — | Annotations: 0</div>
+        <div id="doc-info" class="muted">Document: — | Annotations: 0</div> -->
         <div class="row" style="margin-top:8px; gap:8px; align-items:center">
           <label for="dir-path" class="muted small">Server input directory (contains .txt files):</label>
           <input id="dir-path" type="text" placeholder="/absolute/path/to/texts" style="width:320px" />
@@ -40,13 +40,13 @@
           <button data-label="LOC" class="label-btn">LOC</button>
         </div>
 
-        <div class="controls">
-          <button id="save-selection">Sauvegarder sélection</button>
-          <button id="export-btn">Suivant / Export .conll</button>
-        </div>
+        
 
         <div id="text-container" class="text-box" tabindex="0"></div>
       </section>
+      <div class="controls">
+          <button id="export-btn">Suivant / Export .conll</button>
+        </div>
 
       <section class="annotations-list">
         <h2>3. Annotations</h2>
@@ -55,17 +55,5 @@
     </main>
 
     <script src="app.js"></script>
-  </body>
-</html>
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Annotel - Frontend</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

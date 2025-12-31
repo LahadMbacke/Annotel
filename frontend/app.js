@@ -21,10 +21,12 @@ let backendAvailable = false
 // allow changing backend at runtime
 if(backendUrlInput){
   backendUrlInput.value = BACKEND_BASE
-  setBackendBtn.addEventListener('click', ()=>{
-    const v = backendUrlInput.value.trim()
-    if(v){ BACKEND_BASE = v; pingBackend() }
-  })
+  if(setBackendBtn){
+    setBackendBtn.addEventListener('click', ()=>{
+      const v = backendUrlInput.value.trim()
+      if(v){ BACKEND_BASE = v; pingBackend() }
+    })
+  }
 }
 
 if(setDirBtn){
@@ -50,6 +52,7 @@ if(setDirBtn){
 }
 
 function updateDocInfo(){
+  if(!docInfo) return
   docInfo.textContent = `Document: ${docId || '—'} | Annotations: ${annotations.length}`
 }
 
@@ -87,6 +90,7 @@ function setLabelButtons(){
 }
 
 function renderAnnotatedText(){
+  if(!textContainer) return
   if(!textContent) { textContainer.textContent = ''; return }
   if(annotations.length === 0){ textContainer.textContent = textContent; return }
 
@@ -114,6 +118,7 @@ function renderAnnotatedText(){
 }
 
 function renderAnnotationsList(){
+  if(!annList) return
   annList.innerHTML = ''
   annotations.forEach((a, i) => {
     const li = document.createElement('li')
@@ -172,7 +177,9 @@ async function pushAnnotationsToBackend(){
   }catch(e){ console.error(e) }
 }
 
-document.getElementById('upload-form').addEventListener('submit', async (e)=>{
+const uploadForm = document.getElementById('upload-form')
+if(uploadForm){
+  uploadForm.addEventListener('submit', async (e)=>{
   e.preventDefault()
   const textArea = document.getElementById('text-input')
   const fileInput = document.getElementById('file-input')
@@ -193,9 +200,12 @@ document.getElementById('upload-form').addEventListener('submit', async (e)=>{
     renderAnnotatedText()
     renderAnnotationsList()
   }catch(err){ console.error(err); alert('Upload error') }
-})
+  })
+}
 
-document.getElementById('save-selection').addEventListener('click', async ()=>{
+const saveBtn = document.getElementById('save-selection')
+if(saveBtn){
+  saveBtn.addEventListener('click', async ()=>{
   const sel = getSelectionOffsets()
   if(!sel){ alert('Sélectionnez d\'abord du texte dans le bloc'); return }
   // basic overlap check
@@ -209,9 +219,12 @@ document.getElementById('save-selection').addEventListener('click', async ()=>{
   // clear live selection and saved lastSelection
   try{ window.getSelection().removeAllRanges() }catch(e){}
   lastSelection = null
-})
+  })
+}
 
-document.getElementById('export-btn').addEventListener('click', async ()=>{
+const exportBtn = document.getElementById('export-btn')
+if(exportBtn){
+  exportBtn.addEventListener('click', async ()=>{
   if(!docId){ alert('Aucun document à exporter'); return }
   try{
     const resp = await fetch(`${BACKEND_BASE}/export/${docId}`)
@@ -248,7 +261,8 @@ document.getElementById('export-btn').addEventListener('click', async ()=>{
       }
     }catch(e){ console.error(e) }
   }catch(e){ console.error(e) }
-})
+  })
+}
 
 // ping backend on load
 async function pingBackend(){
@@ -271,7 +285,8 @@ renderAnnotationsList()
 pingBackend()
 
 // capture selection on mouseup inside the text container so clicking buttons later won't lose it
-textContainer.addEventListener('mouseup', ()=>{
+if(textContainer){
+  textContainer.addEventListener('mouseup', ()=>{
   const sel = window.getSelection()
   if(!sel || sel.rangeCount===0) { lastSelection = null; return }
   const range = sel.getRangeAt(0)
@@ -286,4 +301,5 @@ textContainer.addEventListener('mouseup', ()=>{
   const end = preEnd.toString().length
   if(end > start) lastSelection = { start, end, text: textContent.slice(start, end) }
   else lastSelection = null
-})
+  })
+}

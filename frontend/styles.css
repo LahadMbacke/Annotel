@@ -21,11 +21,31 @@ h1{ margin-bottom:8px; font-size:28px }
 .label-btn{ padding:8px 12px; border-radius:6px; border:1px solid #d1d5db; background:var(--muted-bg); cursor:pointer; font-weight:600; display:flex; align-items:center; gap:8px }
 .label-btn.active{ box-shadow:0 6px 18px rgba(15,23,42,0.06); border-color:var(--accent); background:linear-gradient(180deg, #fff, #f8fbff) }
 
-/* colored label buttons (muted when not active) */
-.label-btn[data-label="PERS"]{ background:linear-gradient(180deg, rgba(255,138,128,0.12), rgba(255,138,128,0.06)); border-color:rgba(255,138,128,0.25) }
-.label-btn[data-label="ORG"]{ background:linear-gradient(180deg, rgba(165,214,167,0.12), rgba(165,214,167,0.06)); border-color:rgba(165,214,167,0.25) }
-.label-btn[data-label="DATE"]{ background:linear-gradient(180deg, rgba(144,202,249,0.12), rgba(144,202,249,0.06)); border-color:rgba(144,202,249,0.25) }
-.label-btn[data-label="LOC"]{ background:linear-gradient(180deg, rgba(244,143,177,0.12), rgba(244,143,177,0.06)); border-color:rgba(244,143,177,0.25) }
+/* colored label buttons (match annotated spans) */
+.label-btn[data-label="PERS"]{
+	background: var(--pers);
+	color: #000;
+	border-color: rgba(0,0,0,0.06);
+	box-shadow: inset 0 -3px 0 rgba(0,0,0,0.06);
+}
+.label-btn[data-label="ORG"]{
+	background: var(--org);
+	color: #07361a;
+	border-color: rgba(0,0,0,0.06);
+	box-shadow: inset 0 -3px 0 rgba(0,0,0,0.04);
+}
+.label-btn[data-label="DATE"]{
+	background: var(--date);
+	color: #062a46;
+	border-color: rgba(0,0,0,0.06);
+	box-shadow: inset 0 -3px 0 rgba(0,0,0,0.04);
+}
+.label-btn[data-label="LOC"]{
+	background: var(--loc);
+	color: #3b0b2f;
+	border-color: rgba(0,0,0,0.06);
+	box-shadow: inset 0 -3px 0 rgba(0,0,0,0.04);
+}
 .controls{ margin-bottom:10px }
 .controls button{ padding:8px 12px; border-radius:6px; border:1px solid #cbd5e1; background:#fff; cursor:pointer }
 .controls button:hover{ transform:translateY(-1px) }
