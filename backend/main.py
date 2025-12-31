@@ -171,6 +171,16 @@ def set_directory(payload: dict):
     DIR_STATE["path"] = path
     DIR_STATE["files"] = files
     DIR_STATE["index"] = 0
+    # optional output directory
+    output_path = payload.get("output_path") if isinstance(payload, dict) else None
+    if output_path:
+        DIR_STATE["out_path"] = output_path
+        try:
+            os.makedirs(output_path, exist_ok=True)
+        except Exception:
+            raise HTTPException(status_code=400, detail="Unable to create output directory")
+    else:
+        DIR_STATE["out_path"] = DIR_STATE["path"]
 
     if not files:
         return {"status": "empty", "message": "No .txt files found in directory"}
@@ -199,7 +209,12 @@ def next_file(payload: dict):
             base = prev.get("orig_filename") or f"annotations_{prev_doc_id}.conll"
             if not base.lower().endswith('.conll'):
                 base = os.path.splitext(base)[0] + '.conll'
-            outpath = os.path.join(DIR_STATE["path"], base)
+            out_dir = DIR_STATE.get("out_path") or DIR_STATE.get("path")
+            try:
+                os.makedirs(out_dir, exist_ok=True)
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Failed to ensure output dir: {e}")
+            outpath = os.path.join(out_dir, base)
             try:
                 with open(outpath, 'w', encoding='utf-8') as f:
                     f.write(conll)

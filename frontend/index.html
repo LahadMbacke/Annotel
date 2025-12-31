@@ -12,6 +12,7 @@
 
       <section class="upload">
         <h2>1. Charger un texte</h2>
+        <div id="backend-status" class="muted">Checking backend...</div>
         <form id="upload-form">
           <label for="text-input">Coller le texte :</label>
           <textarea id="text-input" name="text" rows="6" placeholder="Collez ou tapez le texte ici"></textarea>
@@ -21,6 +22,13 @@
           </div>
         </form>
         <div id="doc-info" class="muted">Document: — | Annotations: 0</div>
+        <div class="row" style="margin-top:8px; gap:8px; align-items:center">
+          <label for="dir-path" class="muted small">Server input directory (contains .txt files):</label>
+          <input id="dir-path" type="text" placeholder="/absolute/path/to/texts" style="width:320px" />
+          <label for="out-dir-path" class="muted small" style="margin-left:8px">Output directory (for .conll):</label>
+          <input id="out-dir-path" type="text" placeholder="/absolute/path/to/output" style="width:320px" />
+          <button id="set-dir">Set directories</button>
+        </div>
       </section>
 
       <section class="annotate">
